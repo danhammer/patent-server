@@ -12,6 +12,8 @@ HTTP = urllib3.PoolManager()
 
 
 def id_type(query):
+    """Return the type of query -- application number or patent number --
+    based on input query string."""
     if len(query) == 7:
         return "patent number"
     else:
@@ -23,6 +25,8 @@ def id_type(query):
 
 
 def patent_parse(query):
+    """Returns the structured data for the patent query, checking first for
+    whether the query conforms to the parameters for a patent identifier."""
     try:
         s = id_type(query)
     except Exception:
@@ -40,7 +44,7 @@ def patent_parse(query):
     return {
         "number": query,
         "type": s,
-        "title": title
+        "title": title.lower().capitalize()
     }
 
 
@@ -65,8 +69,11 @@ class Patent:
         self.soup = BeautifulSoup(self.body)
 
     def get_title(self):
-        [title] = self.soup.find_all('font', {'size': '+1'})
-        return title.string.strip()
+        try:
+            [title] = self.soup.find_all('font', {'size': '+1'})
+            return title.string.strip()
+        except Exception:
+            return "No results found."
 
 
 class Application:
@@ -90,6 +97,8 @@ class Application:
         self.soup = BeautifulSoup(self.body)
 
     def get_title(self):
-        [title] = self.soup.find_all('font', {'size': '+1'})
-        return title.string.strip()
-
+        try:
+            [title] = self.soup.find_all('font', {'size': '+1'})
+            return title.string.strip()
+        except Exception:
+            return "No results found."
