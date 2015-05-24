@@ -20,8 +20,8 @@ query      | character sequence
 
 ```json
 {
-    type: "patent number",
-    number: "7654321",
-    title: "Formation fluid sampling apparatus and methods"
+    "type": "patent number",
+    "number": "7654321",
+    "title": "Formation fluid sampling apparatus and methods"
 }
 ```
