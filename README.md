@@ -15,6 +15,7 @@ parameter  | type
 query      | character sequence
 
 **Example**:
+
 [http://patent-server.appspot.com/api?query=7777777](http://patent-server.appspot.com/api?query=7777777)
 
 ```json
