@@ -11,6 +11,12 @@ import json
 HTTP = urllib3.PoolManager()
 
 
+def filter_appl(soup):
+    trs = soup.find_all('TR')
+    [elem] = filter(lambda x: "Appl. No.:" in x.text, trs)
+    return elem.b.string
+
+
 def id_type(query):
     """Return the type of query -- application number or patent number --
     based on input query string."""
@@ -36,15 +42,23 @@ def patent_parse(query):
         }
 
     if s == "patent number":
-        title = Patent(query).get_title()
+        patent = Patent(query)
+        title = patent.get_title()
+        num = patent.get_appl_num()
+        date = patent.get_date()
 
     elif s == "application number":
-        title = Application(query).get_title()
+        app = Application(query)
+        title = app.get_title()
+        num = app.get_appl_num()
+        date = patent.get_date()
 
     return {
         "number": query,
         "type": s,
-        "title": title.lower().capitalize()
+        "title": title.lower().capitalize(),
+        "application_number": num,
+        "date": date
     }
 
 
@@ -75,6 +89,22 @@ class Patent:
         except Exception:
             return "No results found."
 
+    def get_appl_num(self):
+        try:
+            trs = self.soup.find_all('tr')
+            [elem] = filter(lambda x: "Appl. No.:" in x.text, trs)
+            return elem.b.string
+        except Exception:
+            return None
+
+    def get_date(self):
+        try:
+            trs = self.soup.find_all('tr')
+            elem = filter(lambda x: "Filed:" in x.text, trs)[0]
+            return elem.b.string
+        except Exception:
+            return None
+
 
 class Application:
     def __init__(self, num):
@@ -102,3 +132,19 @@ class Application:
             return title.string.strip()
         except Exception:
             return "No results found."
+
+    def get_appl_num(self):
+        try:
+            trs = self.soup.find_all('tr')
+            [elem] = filter(lambda x: "Appl. No.:" in x.text, trs)
+            return elem.b.string
+        except Exception:
+            return None
+
+    def get_date(self):
+        try:
+            trs = self.soup.find_all('tr')
+            elem = filter(lambda x: "Filed:" in x.text, trs)[0]
+            return elem.b.string
+        except Exception:
+            return None
