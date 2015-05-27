@@ -51,7 +51,7 @@ def patent_parse(query):
         app = Application(query)
         title = app.get_title()
         num = app.get_appl_num()
-        date = patent.get_date()
+        date = app.get_date()
 
     return {
         "number": query,
