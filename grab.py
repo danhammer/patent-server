@@ -93,7 +93,7 @@ class Patent:
         try:
             trs = self.soup.find_all('tr')
             [elem] = filter(lambda x: "Appl. No.:" in x.text, trs)
-            return elem.b.string
+            return elem.b.string.strip()
         except Exception:
             return None
 
@@ -137,7 +137,7 @@ class Application:
         try:
             trs = self.soup.find_all('tr')
             [elem] = filter(lambda x: "Appl. No.:" in x.text, trs)
-            return elem.b.string
+            return elem.b.string.strip()
         except Exception:
             return None
 
