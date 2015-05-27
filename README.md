@@ -15,12 +15,13 @@ parameter  | type
 query      | character sequence
 
 **Example**:
-[http://patent-server.appspot.com/api?query=7777777](http://patent-server.appspot.com/api?query=7777777)
+
+[http://patent-server.appspot.com/api?query=7654321](http://patent-server.appspot.com/api?query=7654321)
 
 ```json
 {
     "type": "patent number",
-    "number": "7777777",
-    "title": "System and method for active call monitoring"
+    "number": "7654321",
+    "title": "Formation fluid sampling apparatus and methods"
 }
 ```
