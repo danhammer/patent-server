@@ -1,4 +1,4 @@
-# Patent server
+### Patent server     ![](https://travis-ci.org/danhammer/patent-server.svg?branch=master)
 
 Return the metadata associated with patent and patent application numbers in a RESTful sort of way.
 
